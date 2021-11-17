@@ -6,11 +6,11 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=kubedb-repo-refresher # -$(date +%s)
-COMMIT_MSG="Use DisableAnalytics flag from license"
+COMMIT_MSG="Update kmodules.xyz/monitoring-agent-api"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-1969d04c0945a0b9f69f18308912519588834481}
+KUBEDB_API_REF=${KUBEDB_API_REF:-ff3a4175f2df84b23a62ac6d38d0fb39f1c7c9af}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -37,8 +37,8 @@ refresh() {
             go mod tidy
         fi
         go mod edit \
-            -require=kmodules.xyz/client-go@091bd089a92dd44e734ad5ccc3fef72fc8a1043b \
-            -require=kmodules.xyz/monitoring-agent-api@ca48f83c44c5e0bfd46a580e73eeac18e2bd2d4b \
+            -require=kmodules.xyz/client-go@a321f503ea3af6924af1f291d1505826ed2cb297 \
+            -require=kmodules.xyz/monitoring-agent-api@520052fe6ff687cf40fe007c10ce180692f3c8bc \
             -require=kmodules.xyz/webhook-runtime@ac7adedbd68016478ad656b8b751775142351be3 \
             -require=kmodules.xyz/resource-metadata@v0.6.7 \
             -require=kmodules.xyz/custom-resources@7ab2db03cce8470a57f13cdb89a1ee5b47f2df7d \
