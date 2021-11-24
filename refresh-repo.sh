@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=kubedb-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update kmodules.xyz/monitoring-agent-api"
+COMMIT_MSG="Update dependencies"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
