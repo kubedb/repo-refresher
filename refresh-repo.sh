@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=kubedb-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update dependencies"
+COMMIT_MSG="Fix SiteInfo publishing"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
@@ -44,9 +44,9 @@ refresh() {
             -require=kmodules.xyz/custom-resources@3bf3dbd8ac52976bebfe47e91c675ecd4da3b3a3 \
             -require=kmodules.xyz/objectstore-api@8720be0c9bf72b80e5de43bf65831e997671a490 \
             -require=kmodules.xyz/offshoot-api@806cde7fb79551315ed6561ef53cd6f6d40c27cb \
-            -require=go.bytebuilders.dev/license-verifier@v0.9.6 \
-            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.6 \
-            -require=go.bytebuilders.dev/audit@v0.0.13 \
+            -require=go.bytebuilders.dev/license-verifier@v0.9.7 \
+            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.7 \
+            -require=go.bytebuilders.dev/audit@v0.0.14 \
             -require=gomodules.xyz/x@v0.0.8 \
             -require=gomodules.xyz/logs@v0.0.6 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
