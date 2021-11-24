@@ -10,7 +10,7 @@ COMMIT_MSG="Update kmodules.xyz/monitoring-agent-api"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-ff3a4175f2df84b23a62ac6d38d0fb39f1c7c9af}
+KUBEDB_API_REF=${KUBEDB_API_REF:-fe94664c66458f04426097789bcbc2b71ea9d56c}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -37,16 +37,16 @@ refresh() {
             go mod tidy
         fi
         go mod edit \
-            -require=kmodules.xyz/client-go@a321f503ea3af6924af1f291d1505826ed2cb297 \
+            -require=kmodules.xyz/client-go@6c471b24a4ea68cb5d69a6b76dc6408daae7fa61 \
             -require=kmodules.xyz/monitoring-agent-api@520052fe6ff687cf40fe007c10ce180692f3c8bc \
-            -require=kmodules.xyz/webhook-runtime@ac7adedbd68016478ad656b8b751775142351be3 \
+            -require=kmodules.xyz/webhook-runtime@909a755cc9d1068720bad9907a9b0c488a2d0f92 \
             -require=kmodules.xyz/resource-metadata@v0.6.7 \
-            -require=kmodules.xyz/custom-resources@7ab2db03cce8470a57f13cdb89a1ee5b47f2df7d \
-            -require=kmodules.xyz/objectstore-api@b9135743b78beee7af03b309c36ac18294943600 \
-            -require=kmodules.xyz/offshoot-api@3e217667cf417e3fa8a935f422c9053f6feac830 \
-            -require=go.bytebuilders.dev/license-verifier@v0.9.5 \
-            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.5 \
-            -require=go.bytebuilders.dev/audit@v0.0.12 \
+            -require=kmodules.xyz/custom-resources@3bf3dbd8ac52976bebfe47e91c675ecd4da3b3a3 \
+            -require=kmodules.xyz/objectstore-api@8720be0c9bf72b80e5de43bf65831e997671a490 \
+            -require=kmodules.xyz/offshoot-api@806cde7fb79551315ed6561ef53cd6f6d40c27cb \
+            -require=go.bytebuilders.dev/license-verifier@v0.9.6 \
+            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.6 \
+            -require=go.bytebuilders.dev/audit@v0.0.13 \
             -require=gomodules.xyz/x@v0.0.8 \
             -require=gomodules.xyz/logs@v0.0.6 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
