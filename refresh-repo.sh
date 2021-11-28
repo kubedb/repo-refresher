@@ -10,7 +10,7 @@ COMMIT_MSG="Recover from panic in reconcilers"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-fe94664c66458f04426097789bcbc2b71ea9d56c}
+KUBEDB_API_REF=${KUBEDB_API_REF:-v0.24.0}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
