@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=kubedb-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update UID generation for GenericResource"
+COMMIT_MSG="Use stash.appscode.dev/apimachinery@v0.18.0"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
@@ -49,7 +49,7 @@ refresh() {
             -require=go.bytebuilders.dev/audit@v0.0.19 \
             -require=gomodules.xyz/x@v0.0.10 \
             -require=gomodules.xyz/logs@v0.0.6 \
-            -require=stash.appscode.dev/apimachinery@7c80de5c81b171eebc9295234c390e04065c2a1f \
+            -require=stash.appscode.dev/apimachinery@v0.18.0 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
             -replace=github.com/dgrijalva/jwt-go=github.com/gomodules/jwt@v3.2.2+incompatible \
             -replace=github.com/golang-jwt/jwt=github.com/golang-jwt/jwt@v3.2.2+incompatible \
