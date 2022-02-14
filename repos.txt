@@ -1,7 +1,9 @@
-github.com/appscode/kubedb-autoscaler
-github.com/appscode/kubedb-enterprise
+github.com/kubedb/autoscaler
 github.com/kubedb/cli
+github.com/kubedb/dashboard
+github.com/kubedb/db-client-go
 github.com/kubedb/elasticsearch
+github.com/kubedb/enterprise
 github.com/kubedb/installer
 github.com/kubedb/mariadb
 github.com/kubedb/mariadb-coordinator
@@ -20,3 +22,4 @@ github.com/kubedb/redis
 github.com/kubedb/redis-coordinator
 github.com/kubedb/replication-mode-detector
 github.com/kubedb/tests
+github.com/kubedb/webhook-server
