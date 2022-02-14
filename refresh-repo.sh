@@ -6,11 +6,11 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=kubedb-repo-refresher # -$(date +%s)
-COMMIT_MSG="Use stash.appscode.dev/apimachinery@v0.18.0"
+COMMIT_MSG="Update dependencies"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-5d665ff166f6baf80c30613551604e6c2f3518cd}
+KUBEDB_API_REF=${KUBEDB_API_REF:-c6db524e70fd01b6fbac0683f690b64c04ad0c50}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -50,6 +50,7 @@ refresh() {
             -require=gomodules.xyz/x@v0.0.10 \
             -require=gomodules.xyz/logs@v0.0.6 \
             -require=stash.appscode.dev/apimachinery@v0.18.0 \
+            -require=kubedb.dev/db-client-go@9c63e21a217832cf5f84a5426360570e58870d70 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
             -replace=github.com/dgrijalva/jwt-go=github.com/gomodules/jwt@v3.2.2+incompatible \
             -replace=github.com/golang-jwt/jwt=github.com/golang-jwt/jwt@v3.2.2+incompatible \
