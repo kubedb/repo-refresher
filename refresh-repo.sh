@@ -37,20 +37,21 @@ refresh() {
             go mod tidy
         fi
         go mod edit \
-            -require=kmodules.xyz/client-go@1de48437aaf3867c0cafe186b3d2d5fad6ffeabe \
-            -require=kmodules.xyz/monitoring-agent-api@028e6430395e6ad760aaa337b2e678939f6de3d3 \
-            -require=kmodules.xyz/webhook-runtime@909a755cc9d1068720bad9907a9b0c488a2d0f92 \
-            -require=kmodules.xyz/resource-metadata@v0.9.7 \
-            -require=kmodules.xyz/custom-resources@61b298634e43955f3e93c3deefda632c9b0fb5dd \
-            -require=kmodules.xyz/objectstore-api@3271069de43e767f91aca914d44ad335a9abc58c \
-            -require=kmodules.xyz/offshoot-api@cc7187e020cfd9931b5e97efcd04ec4de7a998da \
+            -require=kmodules.xyz/client-go@2a6d5a5784f241725e193988fd238255d737569f \
+            -require=kmodules.xyz/monitoring-agent-api@0290ed5b75e16eb2d3a6066851ae5570d101b6f8 \
+            -require=kmodules.xyz/webhook-runtime@0ddfc9e4c2214ebcc4acd9e33d2f8e9880de1428 \
+            -require=kmodules.xyz/resource-metadata@v0.10.12 \
+            -require=kmodules.xyz/custom-resources@7beb809b1f5eb5dd1bbe61494513f3ccc5fcd9a5 \
+            -require=kmodules.xyz/objectstore-api@f1d593d0a778b3f502dfff9cdcb759ac5e55e6a4 \
+            -require=kmodules.xyz/offshoot-api@3b0fd2ea77d65eaad436940b8d21abbaf2421922 \
             -require=go.bytebuilders.dev/license-verifier@v0.9.7 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.7 \
             -require=go.bytebuilders.dev/audit@v0.0.19 \
-            -require=gomodules.xyz/x@v0.0.10 \
+            -require=gomodules.xyz/x@v0.0.13 \
             -require=gomodules.xyz/logs@v0.0.6 \
             -require=stash.appscode.dev/apimachinery@v0.18.0 \
             -require=kubedb.dev/db-client-go@9c63e21a217832cf5f84a5426360570e58870d70 \
+            -require=go.mongodb.org/mongo-driver@v1.8.4 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
             -replace=github.com/dgrijalva/jwt-go=github.com/gomodules/jwt@v3.2.2+incompatible \
             -replace=github.com/golang-jwt/jwt=github.com/golang-jwt/jwt@v3.2.2+incompatible \
