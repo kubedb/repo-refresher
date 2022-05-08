@@ -6,11 +6,11 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=kubedb-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update dependencies"
+COMMIT_MSG="Update dependencies(nats client, mongo-driver)"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-3a3c03c00cff1d6545d0d2b440bd2577cbee87ec}
+KUBEDB_API_REF=${KUBEDB_API_REF:-74c4fc13ef02da1795cbe99476cf13161a92005c}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -31,27 +31,32 @@ refresh() {
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
     if [ -f go.mod ]; then
+        sed -i "s|go 1.12|go 1.17|g" go.mod
+        sed -i "s|go 1.13|go 1.17|g" go.mod
+        sed -i "s|go 1.14|go 1.17|g" go.mod
+        sed -i "s|go 1.15|go 1.17|g" go.mod
+        sed -i "s|go 1.16|go 1.17|g" go.mod
         if [ "$1" != "github.com/kubedb/apimachinery" ]; then
             go mod edit \
                 -require kubedb.dev/apimachinery@${KUBEDB_API_REF}
             go mod tidy
         fi
         go mod edit \
-            -require=kmodules.xyz/client-go@2a6d5a5784f241725e193988fd238255d737569f \
+            -require=kmodules.xyz/client-go@36281a681909309a3323ba55cd20c59cf615e7df \
             -require=kmodules.xyz/monitoring-agent-api@0290ed5b75e16eb2d3a6066851ae5570d101b6f8 \
             -require=kmodules.xyz/webhook-runtime@0ddfc9e4c2214ebcc4acd9e33d2f8e9880de1428 \
-            -require=kmodules.xyz/resource-metadata@v0.10.12 \
-            -require=kmodules.xyz/custom-resources@7beb809b1f5eb5dd1bbe61494513f3ccc5fcd9a5 \
+            -require=kmodules.xyz/resource-metadata@v0.10.15 \
+            -require=kmodules.xyz/custom-resources@237eae1d7ddd7dd2b5384b5f306aa489ef6c49ef \
             -require=kmodules.xyz/objectstore-api@f1d593d0a778b3f502dfff9cdcb759ac5e55e6a4 \
-            -require=kmodules.xyz/offshoot-api@3b0fd2ea77d65eaad436940b8d21abbaf2421922 \
+            -require=kmodules.xyz/offshoot-api@fefb02c26514eb8cb52b88697d0e6104f2241caf \
             -require=go.bytebuilders.dev/license-verifier@v0.9.7 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.7 \
-            -require=go.bytebuilders.dev/audit@v0.0.19 \
-            -require=gomodules.xyz/x@v0.0.13 \
+            -require=go.bytebuilders.dev/audit@v0.0.20 \
+            -require=gomodules.xyz/x@v0.0.14 \
             -require=gomodules.xyz/logs@v0.0.6 \
-            -require=stash.appscode.dev/apimachinery@v0.18.0 \
+            -require=stash.appscode.dev/apimachinery@v0.20.0 \
             -require=kubedb.dev/db-client-go@9c63e21a217832cf5f84a5426360570e58870d70 \
-            -require=go.mongodb.org/mongo-driver@v1.8.4 \
+            -require=go.mongodb.org/mongo-driver@v1.9.1 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
             -replace=github.com/dgrijalva/jwt-go=github.com/gomodules/jwt@v3.2.2+incompatible \
             -replace=github.com/golang-jwt/jwt=github.com/golang-jwt/jwt@v3.2.2+incompatible \
