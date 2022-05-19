@@ -43,7 +43,7 @@ refresh() {
         fi
         go mod edit \
             -require=kmodules.xyz/client-go@dc247aa7f6df368645b0b5b28c37c1c2e6b11f6d \
-            -require=kmodules.xyz/monitoring-agent-api@05a48a0a1d3f8e8e51a03704ddae1758113f74ad7 \
+            -require=kmodules.xyz/monitoring-agent-api@5a48a0a1d3f8e8e51a03704ddae1758113f74ad7 \
             -require=kmodules.xyz/webhook-runtime@0ddfc9e4c2214ebcc4acd9e33d2f8e9880de1428 \
             -require=kmodules.xyz/resource-metadata@v0.10.16 \
             -require=kmodules.xyz/custom-resources@237eae1d7ddd7dd2b5384b5f306aa489ef6c49ef \
