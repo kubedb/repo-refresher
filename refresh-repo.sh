@@ -6,11 +6,11 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=kubedb-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update dependencies(nats client, mongo-driver)"
+COMMIT_MSG="Update dependencies"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-74c4fc13ef02da1795cbe99476cf13161a92005c}
+KUBEDB_API_REF=${KUBEDB_API_REF:-3634eb14c9acb5ab68071fa38ca0b5236e266094}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -42,10 +42,10 @@ refresh() {
             go mod tidy
         fi
         go mod edit \
-            -require=kmodules.xyz/client-go@36281a681909309a3323ba55cd20c59cf615e7df \
-            -require=kmodules.xyz/monitoring-agent-api@0290ed5b75e16eb2d3a6066851ae5570d101b6f8 \
+            -require=kmodules.xyz/client-go@dc247aa7f6df368645b0b5b28c37c1c2e6b11f6d \
+            -require=kmodules.xyz/monitoring-agent-api@05a48a0a1d3f8e8e51a03704ddae1758113f74ad7 \
             -require=kmodules.xyz/webhook-runtime@0ddfc9e4c2214ebcc4acd9e33d2f8e9880de1428 \
-            -require=kmodules.xyz/resource-metadata@v0.10.15 \
+            -require=kmodules.xyz/resource-metadata@v0.10.16 \
             -require=kmodules.xyz/custom-resources@237eae1d7ddd7dd2b5384b5f306aa489ef6c49ef \
             -require=kmodules.xyz/objectstore-api@f1d593d0a778b3f502dfff9cdcb759ac5e55e6a4 \
             -require=kmodules.xyz/offshoot-api@fefb02c26514eb8cb52b88697d0e6104f2241caf \
@@ -54,7 +54,7 @@ refresh() {
             -require=go.bytebuilders.dev/audit@v0.0.20 \
             -require=gomodules.xyz/x@v0.0.14 \
             -require=gomodules.xyz/logs@v0.0.6 \
-            -require=stash.appscode.dev/apimachinery@v0.20.0 \
+            -require=stash.appscode.dev/apimachinery@v0.20.1 \
             -require=kubedb.dev/db-client-go@9c63e21a217832cf5f84a5426360570e58870d70 \
             -require=go.mongodb.org/mongo-driver@v1.9.1 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
