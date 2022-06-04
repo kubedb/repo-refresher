@@ -57,6 +57,7 @@ EOF
             -require=stash.appscode.dev/apimachinery@b90c85f4fd8ce0095885ad6c1da26557fbf87182 \
             -require=kubedb.dev/db-client-go@9c63e21a217832cf5f84a5426360570e58870d70 \
             -require=go.mongodb.org/mongo-driver@v1.9.1 \
+            -replace=sigs.k8s.io/controller-runtime=github.com/kmodules/controller-runtime@v0.12.2-0.20220603144237-6cd001896bf3 \
             -replace=github.com/imdario/mergo=github.com/imdario/mergo@v0.3.5 \
             -replace=k8s.io/apimachinery=github.com/kmodules/apimachinery@v0.24.2-rc.0.0.20220603191800-1c7484099dee \
             -replace=k8s.io/apiserver=github.com/kmodules/apiserver@v0.0.0-20220603223637-59dad1716c43 \
