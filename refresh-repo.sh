@@ -47,12 +47,13 @@ EOF
         # sed -i "s|go 1.14|go 1.17|g" go.mod
         # sed -i "s|go 1.15|go 1.17|g" go.mod
         # sed -i "s|go 1.16|go 1.17|g" go.mod
-        if [ "$1" != "github.com/kubedb/apimachinery" ]; then
-            go mod edit \
-                -require kubedb.dev/apimachinery@${KUBEDB_API_REF}
-            go mod tidy
-        fi
+        # if [ "$1" != "github.com/kubedb/apimachinery" ]; then
+        #     go mod edit \
+        #         -require kubedb.dev/apimachinery@${KUBEDB_API_REF}
+        #     go mod tidy
+        # fi
         go mod edit \
+            -require kubedb.dev/apimachinery@${KUBEDB_API_REF} \
             -require=k8s.io/kube-openapi@v0.0.0-20220328201542-3ee0da9b0b42 \
             -require=kmodules.xyz/resource-metadata@v0.11.0 \
             -require=go.bytebuilders.dev/license-verifier@v0.10.0 \
