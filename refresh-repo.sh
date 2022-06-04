@@ -5,12 +5,12 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=kubedb-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update dependencies"
+PR_BRANCH=k124 # -$(date +%s)
+COMMIT_MSG="Update to k8s 1.24 toolchain"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-3634eb14c9acb5ab68071fa38ca0b5236e266094}
+KUBEDB_API_REF=${KUBEDB_API_REF:-666ce9c7cf9f2d5665e299d2d133662a691ea2ed}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -28,41 +28,39 @@ refresh() {
     mkdir -p $REPO_ROOT
     pushd $REPO_ROOT
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
-    cd $(ls -b1)
+    name=$(ls -b1)
+    cd $name
     git checkout -b $PR_BRANCH
     if [ -f go.mod ]; then
-        sed -i "s|go 1.12|go 1.17|g" go.mod
-        sed -i "s|go 1.13|go 1.17|g" go.mod
-        sed -i "s|go 1.14|go 1.17|g" go.mod
-        sed -i "s|go 1.15|go 1.17|g" go.mod
-        sed -i "s|go 1.16|go 1.17|g" go.mod
+        cat <<EOF > go.mod
+module kubedb.dev/$name
+
+go 1.18
+
+EOF
+        # sed -i "s|go 1.12|go 1.17|g" go.mod
+        # sed -i "s|go 1.13|go 1.17|g" go.mod
+        # sed -i "s|go 1.14|go 1.17|g" go.mod
+        # sed -i "s|go 1.15|go 1.17|g" go.mod
+        # sed -i "s|go 1.16|go 1.17|g" go.mod
         if [ "$1" != "github.com/kubedb/apimachinery" ]; then
             go mod edit \
                 -require kubedb.dev/apimachinery@${KUBEDB_API_REF}
             go mod tidy
         fi
         go mod edit \
-            -require=kmodules.xyz/client-go@dc247aa7f6df368645b0b5b28c37c1c2e6b11f6d \
-            -require=kmodules.xyz/monitoring-agent-api@5a48a0a1d3f8e8e51a03704ddae1758113f74ad7 \
-            -require=kmodules.xyz/webhook-runtime@0ddfc9e4c2214ebcc4acd9e33d2f8e9880de1428 \
-            -require=kmodules.xyz/resource-metadata@v0.10.16 \
-            -require=kmodules.xyz/custom-resources@237eae1d7ddd7dd2b5384b5f306aa489ef6c49ef \
-            -require=kmodules.xyz/objectstore-api@f1d593d0a778b3f502dfff9cdcb759ac5e55e6a4 \
-            -require=kmodules.xyz/offshoot-api@fefb02c26514eb8cb52b88697d0e6104f2241caf \
-            -require=go.bytebuilders.dev/license-verifier@v0.9.7 \
-            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.7 \
-            -require=go.bytebuilders.dev/audit@v0.0.20 \
-            -require=gomodules.xyz/x@v0.0.14 \
-            -require=gomodules.xyz/logs@v0.0.6 \
-            -require=stash.appscode.dev/apimachinery@v0.20.1 \
+            -require=k8s.io/kube-openapi@v0.0.0-20220328201542-3ee0da9b0b42 \
+            -require=kmodules.xyz/resource-metadata@v0.11.0 \
+            -require=go.bytebuilders.dev/license-verifier@v0.10.0 \
+            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.10.0 \
+            -require=go.bytebuilders.dev/audit@v0.0.22 \
+            -require=stash.appscode.dev/apimachinery@b90c85f4fd8ce0095885ad6c1da26557fbf87182 \
             -require=kubedb.dev/db-client-go@9c63e21a217832cf5f84a5426360570e58870d70 \
             -require=go.mongodb.org/mongo-driver@v1.9.1 \
-            -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
-            -replace=github.com/dgrijalva/jwt-go=github.com/gomodules/jwt@v3.2.2+incompatible \
-            -replace=github.com/golang-jwt/jwt=github.com/golang-jwt/jwt@v3.2.2+incompatible \
-            -replace=github.com/form3tech-oss/jwt-go=github.com/form3tech-oss/jwt-go@v3.2.5+incompatible \
-            -replace=helm.sh/helm/v3=github.com/kubepack/helm/v3@v3.6.1-0.20210518225915-c3e0ce48dd1b \
-            -replace=k8s.io/apiserver=github.com/kmodules/apiserver@v0.21.2-0.20220112070009-e3f6e88991d9
+            -replace=github.com/imdario/mergo=github.com/imdario/mergo@v0.3.5 \
+            -replace=k8s.io/apimachinery=github.com/kmodules/apimachinery@v0.24.2-rc.0.0.20220603191800-1c7484099dee \
+            -replace=k8s.io/apiserver=github.com/kmodules/apiserver@v0.0.0-20220603223637-59dad1716c43 \
+            -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@v1.25.0-alpha.0.0.20220603172133-1c9d09d1b3b8
         go mod tidy
         go mod vendor
     fi
