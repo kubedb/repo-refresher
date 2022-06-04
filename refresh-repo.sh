@@ -38,6 +38,10 @@ module kubedb.dev/$name
 go 1.18
 
 EOF
+        # https://stackoverflow.com/a/63918676/244009
+        # sed -i '' -e 's|github.com/jetstack/cert-manager|github.com/cert-manager/cert-manager|g' `grep 'jetstack' -rl *`
+        sed -i 's|github.com/jetstack/cert-manager|github.com/cert-manager/cert-manager|g' `grep 'jetstack' -rl *`
+
         # sed -i "s|go 1.12|go 1.17|g" go.mod
         # sed -i "s|go 1.13|go 1.17|g" go.mod
         # sed -i "s|go 1.14|go 1.17|g" go.mod
