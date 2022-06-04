@@ -10,7 +10,7 @@ COMMIT_MSG="Update to k8s 1.24 toolchain"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-666ce9c7cf9f2d5665e299d2d133662a691ea2ed}
+KUBEDB_API_REF=${KUBEDB_API_REF:-cf2ae98d4dc6645ff63cbfdcb9d7862fd0d7d75c}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -54,6 +54,7 @@ EOF
         # fi
         go mod edit \
             -require kubedb.dev/apimachinery@${KUBEDB_API_REF} \
+            -require=kubedb.dev/db-client-go@2c33872304261f86c30ac55cc31d7c981c2ece43 \
             -require=k8s.io/kube-openapi@v0.0.0-20220328201542-3ee0da9b0b42 \
             -require=kmodules.xyz/resource-metadata@v0.11.0 \
             -require=go.bytebuilders.dev/license-verifier@v0.10.0 \
