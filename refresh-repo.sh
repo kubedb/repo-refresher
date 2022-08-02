@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=proxyserver # -$(date +%s)
-COMMIT_MSG="Acquire license from license-proxyserver if available"
+PR_BRANCH=dbc # -$(date +%s)
+COMMIT_MSG="Update db-client-go"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
@@ -54,7 +54,7 @@ EOF
         # fi
         go mod edit \
             -require=kubedb.dev/apimachinery@${KUBEDB_API_REF} \
-            -require=kubedb.dev/db-client-go@05ff09cdea0390171ad9bb217cc5a197f6b3773c \
+            -require=kubedb.dev/db-client-go@v0.0.1 \
             -require=k8s.io/kube-openapi@v0.0.0-20220328201542-3ee0da9b0b42 \
             -require=kmodules.xyz/resource-metadata@v0.12.5 \
             -replace=github.com/Masterminds/sprig/v3=github.com/gomodules/sprig/v3@v3.2.3-0.20220405051441-0a8a99bac1b8 \

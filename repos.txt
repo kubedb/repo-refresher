@@ -1,4 +1,3 @@
-github.com/kubedb/autoscaler
 github.com/kubedb/cli
 github.com/kubedb/crd-installer
 github.com/kubedb/dashboard
@@ -11,13 +10,11 @@ github.com/kubedb/mongodb
 github.com/kubedb/mysql
 github.com/kubedb/mysql-coordinator
 github.com/kubedb/mysql-router-init
-github.com/kubedb/ops-manager
 github.com/kubedb/percona-xtradb
 github.com/kubedb/percona-xtradb-coordinator
 github.com/kubedb/pg-coordinator
 github.com/kubedb/pgbouncer
 github.com/kubedb/postgres
-github.com/kubedb/provisioner
 github.com/kubedb/proxysql
 github.com/kubedb/redis
 github.com/kubedb/redis-coordinator
@@ -26,4 +23,7 @@ github.com/kubedb/replication-mode-detector
 github.com/kubedb/schema-manager
 github.com/kubedb/tests
 github.com/kubedb/ui-server
+github.com/kubedb/provisioner
+github.com/kubedb/ops-manager
+github.com/kubedb/autoscaler
 github.com/kubedb/webhook-server
