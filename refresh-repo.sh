@@ -5,12 +5,12 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=k124 # -$(date +%s)
-COMMIT_MSG="Update to k8s 1.24 toolchain"
+PR_BRANCH=proxyserver # -$(date +%s)
+COMMIT_MSG="Acquire license from license-proxyserver if available"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-cf2ae98d4dc6645ff63cbfdcb9d7862fd0d7d75c}
+KUBEDB_API_REF=${KUBEDB_API_REF:-a89b3bc243f92786183aab4b9d28bd390f90207b}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -53,21 +53,40 @@ EOF
         #     go mod tidy
         # fi
         go mod edit \
-            -require kubedb.dev/apimachinery@${KUBEDB_API_REF} \
-            -require=kubedb.dev/db-client-go@2c33872304261f86c30ac55cc31d7c981c2ece43 \
+            -require=kubedb.dev/apimachinery@${KUBEDB_API_REF} \
+            -require=kubedb.dev/db-client-go@05ff09cdea0390171ad9bb217cc5a197f6b3773c \
             -require=k8s.io/kube-openapi@v0.0.0-20220328201542-3ee0da9b0b42 \
-            -require=kmodules.xyz/resource-metadata@v0.11.0 \
-            -require=go.bytebuilders.dev/license-verifier@v0.10.0 \
-            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.10.0 \
-            -require=go.bytebuilders.dev/audit@v0.0.22 \
-            -require=stash.appscode.dev/apimachinery@b90c85f4fd8ce0095885ad6c1da26557fbf87182 \
-            -require=kubedb.dev/db-client-go@9c63e21a217832cf5f84a5426360570e58870d70 \
+            -require=kmodules.xyz/resource-metadata@v0.12.5 \
+            -replace=github.com/Masterminds/sprig/v3=github.com/gomodules/sprig/v3@v3.2.3-0.20220405051441-0a8a99bac1b8 \
+            -require=gomodules.xyz/password-generator@v0.2.8 \
+            -require=go.bytebuilders.dev/license-verifier@v0.11.0 \
+            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.11.0 \
+            -require=go.bytebuilders.dev/audit@v0.0.23 \
+            -require=stash.appscode.dev/apimachinery@v0.22.0 \
             -require=go.mongodb.org/mongo-driver@v1.9.1 \
             -replace=sigs.k8s.io/controller-runtime=github.com/kmodules/controller-runtime@v0.12.2-0.20220603144237-6cd001896bf3 \
             -replace=github.com/imdario/mergo=github.com/imdario/mergo@v0.3.5 \
             -replace=k8s.io/apimachinery=github.com/kmodules/apimachinery@v0.24.2-rc.0.0.20220603191800-1c7484099dee \
             -replace=k8s.io/apiserver=github.com/kmodules/apiserver@v0.0.0-20220603223637-59dad1716c43 \
             -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@v1.25.0-alpha.0.0.20220603172133-1c9d09d1b3b8
+
+        cat <<EOF >> go.mod
+replace (
+    go.opentelemetry.io/contrib => go.opentelemetry.io/contrib v0.20.0
+    go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc => go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.20.0
+    go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp => go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.20.0
+    go.opentelemetry.io/otel => go.opentelemetry.io/otel v0.20.0
+    go.opentelemetry.io/otel/exporters/otlp => go.opentelemetry.io/otel/exporters/otlp v0.20.0
+    go.opentelemetry.io/otel/metric => go.opentelemetry.io/otel/metric v0.20.0
+    go.opentelemetry.io/otel/oteltest => go.opentelemetry.io/otel/oteltest v0.20.0
+    go.opentelemetry.io/otel/sdk => go.opentelemetry.io/otel/sdk v0.20.0
+    go.opentelemetry.io/otel/sdk/export/metric => go.opentelemetry.io/otel/sdk/export/metric v0.20.0
+    go.opentelemetry.io/otel/sdk/metric => go.opentelemetry.io/otel/sdk/metric v0.20.0
+    go.opentelemetry.io/otel/trace => go.opentelemetry.io/otel/trace v0.20.0
+    go.opentelemetry.io/proto/otlp => go.opentelemetry.io/proto/otlp v0.7.0
+)
+EOF
+
         go mod tidy
         go mod vendor
     fi

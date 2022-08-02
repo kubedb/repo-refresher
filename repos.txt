@@ -16,6 +16,7 @@ github.com/kubedb/percona-xtradb
 github.com/kubedb/percona-xtradb-coordinator
 github.com/kubedb/pg-coordinator
 github.com/kubedb/pgbouncer
+github.com/kubedb/postgres
 github.com/kubedb/provisioner
 github.com/kubedb/proxysql
 github.com/kubedb/redis
