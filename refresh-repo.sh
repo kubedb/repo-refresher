@@ -5,12 +5,12 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=dbc # -$(date +%s)
+PR_BRANCH=dbc22 # -$(date +%s)
 COMMIT_MSG="Update db-client-go"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-a89b3bc243f92786183aab4b9d28bd390f90207b}
+KUBEDB_API_REF=${KUBEDB_API_REF:-1241b40d48ec513379b1b2aabd80215e9b93b319}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -54,7 +54,7 @@ EOF
         # fi
         go mod edit \
             -require=kubedb.dev/apimachinery@${KUBEDB_API_REF} \
-            -require=kubedb.dev/db-client-go@v0.0.1 \
+            -require=kubedb.dev/db-client-go@v0.0.2 \
             -require=k8s.io/kube-openapi@v0.0.0-20220328201542-3ee0da9b0b42 \
             -require=kmodules.xyz/resource-metadata@v0.12.5 \
             -replace=github.com/Masterminds/sprig/v3=github.com/gomodules/sprig/v3@v3.2.3-0.20220405051441-0a8a99bac1b8 \
