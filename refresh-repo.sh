@@ -10,7 +10,7 @@ COMMIT_MSG="Use Go 1.19"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-5c643b973f4f44674b8d08c6d7bff29e07faf9fc}
+KUBEDB_API_REF=${KUBEDB_API_REF:-7263b50309d2e37f83f763f0448a4faeac1d5687}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -39,6 +39,14 @@ refresh() {
         sed -i 's/go-version:\ ^1.18/go-version:\ ^1.19/g' *
         popd
     }
+    sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
+    sed -i 's|ioutil.WriteFile|os.WriteFile|g' `grep 'ioutil.WriteFile' -rl *`
+    sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
+    sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
+    sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
+
+    ioutil.ReadFile
+
 
     if [ -f go.mod ]; then
         cat <<EOF > go.mod
@@ -108,6 +116,7 @@ EOF
         # run an extra make fmt because when make gen fails, make fmt is not run
         make fmt || true
     )
+    make fmt || true
     if repo_uptodate; then
         echo "Repository $1 is up-to-date."
     else
