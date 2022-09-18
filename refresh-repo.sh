@@ -5,12 +5,12 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=k1251 # -$(date +%s)
-COMMIT_MSG="Use k8s 1.25.1 libs"
+PR_BRANCH=go19 # -$(date +%s)
+COMMIT_MSG="Use Go 1.19"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-b7b935978ac397bb8bd5feddc9c33ce5f9045a30}
+KUBEDB_API_REF=${KUBEDB_API_REF:-5c643b973f4f44674b8d08c6d7bff29e07faf9fc}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -31,6 +31,15 @@ refresh() {
     name=$(ls -b1)
     cd $name
     git checkout -b $PR_BRANCH
+
+    sed -i 's/?=\ 1.18/?=\ 1.19/g' Makefile
+    pushd .github/workflows/ && {
+        # update GO
+        sed -i 's/Go\ 1.18/Go\ 1.19/g' *
+        sed -i 's/go-version:\ ^1.18/go-version:\ ^1.19/g' *
+        popd
+    }
+
     if [ -f go.mod ]; then
         cat <<EOF > go.mod
 module kubedb.dev/$name
@@ -62,13 +71,13 @@ EOF
             -require=go.bytebuilders.dev/license-verifier@v0.12.0 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.12.0 \
             -require=go.bytebuilders.dev/audit@v0.0.24 \
-            -require=stash.appscode.dev/apimachinery@v0.22.1-0.20220917042332-522f4e18711d \
+            -require=stash.appscode.dev/apimachinery@master \
             -require=github.com/elastic/go-elasticsearch/v7@v7.13.1 \
             -require=go.mongodb.org/mongo-driver@v1.10.2 \
-            -replace=sigs.k8s.io/controller-runtime=github.com/kmodules/controller-runtime@a0df7cc5e5eef343a4664173516318666a48c02f \
+            -replace=sigs.k8s.io/controller-runtime=github.com/kmodules/controller-runtime@ac-0.13.0 \
             -replace=github.com/imdario/mergo=github.com/imdario/mergo@v0.3.6 \
-            -replace=k8s.io/apiserver=github.com/kmodules/apiserver@4ac5fceca5180a267aa514a4041c03c7e6817f82 \
-            -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@54ac9f3f131541935cde59821f5a74036c0fe39d
+            -replace=k8s.io/apiserver=github.com/kmodules/apiserver@ac-1.25.1 \
+            -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@ac-1.25.1
 
         cat <<EOF >> go.mod
 replace (

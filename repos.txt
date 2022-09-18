@@ -1,3 +1,4 @@
+kubedb/autoscaler
 kubedb/cli
 kubedb/crd-installer
 kubedb/dashboard
@@ -10,11 +11,13 @@ kubedb/mongodb
 kubedb/mysql
 kubedb/mysql-coordinator
 kubedb/mysql-router-init
+kubedb/ops-manager
 kubedb/percona-xtradb
 kubedb/percona-xtradb-coordinator
 kubedb/pg-coordinator
 kubedb/pgbouncer
 kubedb/postgres
+kubedb/provisioner
 kubedb/proxysql
 kubedb/redis
 kubedb/redis-coordinator
@@ -23,7 +26,4 @@ kubedb/replication-mode-detector
 kubedb/schema-manager
 kubedb/tests
 kubedb/ui-server
-kubedb/provisioner
-kubedb/ops-manager
-kubedb/autoscaler
 kubedb/webhook-server
