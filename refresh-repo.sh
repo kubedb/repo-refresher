@@ -33,6 +33,8 @@ refresh() {
     git checkout -b $PR_BRANCH
 
     sed -i 's/?=\ 1.18/?=\ 1.19/g' Makefile
+    sed -i 's|appscode/gengo:release-1.24|appscode/gengo:release-1.25|g' Makefile
+
     pushd .github/workflows/ && {
         # update GO
         sed -i 's/Go\ 1.18/Go\ 1.19/g' *
@@ -44,9 +46,6 @@ refresh() {
     sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
     sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
     sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
-
-    ioutil.ReadFile
-
 
     if [ -f go.mod ]; then
         cat <<EOF > go.mod
