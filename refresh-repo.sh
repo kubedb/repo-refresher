@@ -39,6 +39,7 @@ refresh() {
         # update GO
         sed -i 's/Go\ 1.18/Go\ 1.19/g' *
         sed -i 's/go-version:\ ^1.18/go-version:\ ^1.19/g' *
+        sed -i 's/go-version:\ 1.18/go-version:\ 1.19/g' *
         popd
     }
     sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
