@@ -41,7 +41,7 @@ refresh() {
             -require=kmodules.xyz/resource-metadata@v0.15.0 \
             -require=kmodules.xyz/go-containerregistry@v0.0.3 \
             -replace=github.com/Masterminds/sprig/v3=github.com/gomodules/sprig/v3@v3.2.3-0.20220405051441-0a8a99bac1b8 \
-            -require=gomodules.xyz/password-generator@v0.2.8 \
+            -require=gomodules.xyz/password-generator@v0.2.9 \
             -require=go.bytebuilders.dev/license-verifier@v0.12.1 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.12.1 \
             -require=go.bytebuilders.dev/audit@v0.0.26 \
