@@ -5,7 +5,7 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=kdgo121 # -$(date +%s)
+PR_BRANCH=kdgo1222 # -$(date +%s)
 COMMIT_MSG="Update dependencies"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
@@ -35,18 +35,18 @@ refresh() {
     if [ -f go.mod ]; then
         go mod edit \
             -require=gomodules.xyz/logs@v0.0.7 \
-            -require=kubedb.dev/apimachinery@4ce21bc51a16842963c7381c75ccec133a6ed690 \
-            -require=kubedb.dev/db-client-go@a5dd6bda65e3b14533d27b23c8fd7f7673b6e745 \
+            -require=kubedb.dev/apimachinery@8e2aab0c176e12bc3c0ff0ee4b732bd7faddd0ed \
+            -require=kubedb.dev/db-client-go@6ddd035705ef3af7d835fb93611b92f9a1e729f5 \
             -require=k8s.io/kube-openapi@v0.0.0-20220803162953-67bda5d908f1 \
-            -require=kmodules.xyz/client-go@v0.25.29 \
-            -require=kmodules.xyz/resource-metadata@v0.17.11 \
+            -require=kmodules.xyz/client-go@v0.25.30 \
+            -require=kmodules.xyz/resource-metadata@v0.17.12 \
             -require=kmodules.xyz/go-containerregistry@v0.0.11 \
             -replace=github.com/Masterminds/sprig/v3=github.com/gomodules/sprig/v3@v3.2.3-0.20220405051441-0a8a99bac1b8 \
             -require=gomodules.xyz/password-generator@v0.2.9 \
             -require=go.bytebuilders.dev/license-verifier@v0.13.2 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.13.2 \
             -require=go.bytebuilders.dev/audit@v0.0.27 \
-            -require=stash.appscode.dev/apimachinery@fcb8a9106d3c7cc786f9360fe0c05e27038e291b \
+            -require=stash.appscode.dev/apimachinery@v0.31.0 \
             -require=github.com/elastic/go-elasticsearch/v7@v7.15.1 \
             -require=go.mongodb.org/mongo-driver@v1.10.2 \
             -replace=sigs.k8s.io/controller-runtime=github.com/kmodules/controller-runtime@ac-0.13.0 \
