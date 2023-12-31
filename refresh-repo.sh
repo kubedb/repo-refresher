@@ -6,11 +6,11 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=go19 # -$(date +%s)
-COMMIT_MSG="Use Go 1.19"
+COMMIT_MSG="Use k8s 1.29 client libs"
 
-REPO_ROOT=/tmp/kubedb-repo-refresher
+REPO_ROOT=/tmp/kubestash-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-7263b50309d2e37f83f763f0448a4faeac1d5687}
+KUBEDB_API_REF=${KUBEDB_API_REF:-5f7024b3e6614cbb7e44788dbcd70dc85bd68461}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -32,8 +32,8 @@ refresh() {
     cd $name
     git checkout -b $PR_BRANCH
 
-    sed -i 's/?=\ 1.18/?=\ 1.19/g' Makefile
-    sed -i 's|appscode/gengo:release-1.24|appscode/gengo:release-1.25|g' Makefile
+    sed -i 's/?=\ 1.20/?=\ 1.21/g' Makefile
+    sed -i 's|appscode/gengo:release-1.25|appscode/gengo:release-1.29|g' Makefile
 
     pushd .github/workflows/ && {
         # update GO
@@ -52,7 +52,7 @@ refresh() {
         cat <<EOF > go.mod
 module kubedb.dev/$name
 
-go 1.18
+go 1.21
 
 EOF
         # https://stackoverflow.com/a/63918676/244009
@@ -87,25 +87,25 @@ EOF
             -replace=k8s.io/apiserver=github.com/kmodules/apiserver@ac-1.25.1 \
             -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@ac-1.25.1
 
-        cat <<EOF >> go.mod
-replace (
-    go.opencensus.io => go.opencensus.io v0.23.0
-    go.opentelemetry.io/contrib => go.opentelemetry.io/contrib v0.20.0
-    go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful => go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful v0.20.0
-    go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc => go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.20.0
-    go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp => go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.20.0
-    go.opentelemetry.io/contrib/propagators => go.opentelemetry.io/contrib/propagators v0.20.0
-    go.opentelemetry.io/otel => go.opentelemetry.io/otel v0.20.0
-    go.opentelemetry.io/otel/exporters/otlp => go.opentelemetry.io/otel/exporters/otlp v0.20.0
-    go.opentelemetry.io/otel/metric => go.opentelemetry.io/otel/metric v0.20.0
-    go.opentelemetry.io/otel/oteltest => go.opentelemetry.io/otel/oteltest v0.20.0
-    go.opentelemetry.io/otel/sdk => go.opentelemetry.io/otel/sdk v0.20.0
-    go.opentelemetry.io/otel/sdk/export/metric => go.opentelemetry.io/otel/sdk/export/metric v0.20.0
-    go.opentelemetry.io/otel/sdk/metric => go.opentelemetry.io/otel/sdk/metric v0.20.0
-    go.opentelemetry.io/otel/trace => go.opentelemetry.io/otel/trace v0.20.0
-    go.opentelemetry.io/proto/otlp => go.opentelemetry.io/proto/otlp v0.7.0
-)
-EOF
+#         cat <<EOF >> go.mod
+# replace (
+#     go.opencensus.io => go.opencensus.io v0.23.0
+#     go.opentelemetry.io/contrib => go.opentelemetry.io/contrib v0.20.0
+#     go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful => go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful v0.20.0
+#     go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc => go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.20.0
+#     go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp => go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.20.0
+#     go.opentelemetry.io/contrib/propagators => go.opentelemetry.io/contrib/propagators v0.20.0
+#     go.opentelemetry.io/otel => go.opentelemetry.io/otel v0.20.0
+#     go.opentelemetry.io/otel/exporters/otlp => go.opentelemetry.io/otel/exporters/otlp v0.20.0
+#     go.opentelemetry.io/otel/metric => go.opentelemetry.io/otel/metric v0.20.0
+#     go.opentelemetry.io/otel/oteltest => go.opentelemetry.io/otel/oteltest v0.20.0
+#     go.opentelemetry.io/otel/sdk => go.opentelemetry.io/otel/sdk v0.20.0
+#     go.opentelemetry.io/otel/sdk/export/metric => go.opentelemetry.io/otel/sdk/export/metric v0.20.0
+#     go.opentelemetry.io/otel/sdk/metric => go.opentelemetry.io/otel/sdk/metric v0.20.0
+#     go.opentelemetry.io/otel/trace => go.opentelemetry.io/otel/trace v0.20.0
+#     go.opentelemetry.io/proto/otlp => go.opentelemetry.io/proto/otlp v0.7.0
+# )
+# EOF
         # sed -i 's|NewLicenseEnforcer|MustLicenseEnforcer|g' `grep 'NewLicenseEnforcer' -rl *`
         go mod tidy
         go mod vendor
