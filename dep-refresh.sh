@@ -55,6 +55,7 @@ EOF
         go mod edit \
             -require=kubedb.dev/apimachinery@${API_REF} \
             -require=kubedb.dev/db-client-go@v0.0.8 \
+            -require=kubestash.dev/apimachinery@cc46ddfd674a760d87ec2fe4122f7816296654c8 \
             -require=gomodules.xyz/logs@v0.0.7 \
             -require=kmodules.xyz/client-go@v0.29.4 \
             -require=kmodules.xyz/resource-metadata@v0.18.1 \

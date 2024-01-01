@@ -1,0 +1,13 @@
+kubedb/elasticsearch-restic-plugin
+kubedb/kubedb-manifest-plugin
+kubedb/mariadb-archiver
+kubedb/mariadb-csi-snapshotter-plugin
+kubedb/mongodb-csi-snapshotter-plugin
+kubedb/mongodb-restic-plugin
+kubedb/mysql-archiver
+kubedb/mysql-csi-snapshotter-plugin
+kubedb/mysql-restic-plugin
+kubedb/postgres-archiver
+kubedb/postgres-csi-snapshotter-plugin
+kubedb/postgres-restic-plugin
+kubedb/redis-restic-plugin
