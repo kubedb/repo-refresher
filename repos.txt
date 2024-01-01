@@ -1,4 +1,5 @@
 kubedb/autoscaler
+kubedb/kafka
 kubedb/cli
 kubedb/crd-installer
 kubedb/dashboard
