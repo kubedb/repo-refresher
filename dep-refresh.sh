@@ -10,7 +10,7 @@ COMMIT_MSG="Use k8s 1.29 client libs"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-KUBEDB_API_REF=${KUBEDB_API_REF:-5f7024b3e6614cbb7e44788dbcd70dc85bd68461}
+API_REF=${API_REF:-032b27211}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -32,11 +32,26 @@ refresh() {
     cd $name
     git checkout -b $PR_BRANCH
 
+    sed -i 's/?=\ 1.20/?=\ 1.21/g' Makefile
+    sed -i 's|appscode/gengo:release-1.25|appscode/gengo:release-1.29|g' Makefile
+    sed -i 's/goconst,//g' Makefile
+    sed -i 's|gcr.io/distroless/static-debian11|gcr.io/distroless/static-debian12|g' Makefile
+    sed -i 's|debian:bullseye|debian:bookworm|g' Makefile
+
+    pushd .github/workflows/ && {
+        # update GO
+        sed -i 's/Go\ 1.20/Go\ 1.21/g' *
+        sed -i 's/go-version:\ ^1.20/go-version:\ ^1.21/g' *
+        sed -i 's/go-version:\ 1.20/go-version:\ 1.21/g' *
+        sed -i "s/go-version:\ '1.20'/go-version:\ '1.21'/g" *
+        popd
+    }
+
     if [ -f go.mod ]; then
         go mod edit \
-            -require=gomodules.xyz/logs@v0.0.7 \
-            -require=kubedb.dev/apimachinery@${KUBEDB_API_REF} \
+            -require=kubedb.dev/apimachinery@${API_REF} \
             -require=kubedb.dev/db-client-go@v0.0.8 \
+            -require=gomodules.xyz/logs@v0.0.7 \
             -require=kmodules.xyz/client-go@v0.29.4 \
             -require=kmodules.xyz/resource-metadata@v0.18.1 \
             -require=kmodules.xyz/go-containerregistry@v0.0.12 \
