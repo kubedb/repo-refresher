@@ -48,6 +48,10 @@ refresh() {
     }
 
     if [ -f go.mod ]; then
+        cat <<EOF > go.mod
+module kubedb.dev/$name
+
+EOF
         go mod edit \
             -require=kubedb.dev/apimachinery@${API_REF} \
             -require=kubedb.dev/db-client-go@v0.0.8 \
@@ -58,7 +62,9 @@ refresh() {
             -require=gomodules.xyz/password-generator@v0.2.9 \
             -require=go.bytebuilders.dev/license-verifier@v0.13.4 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.13.4 \
+            -require=go.bytebuilders.dev/license-proxyserver@31122ab825027d2495c9320b63d99660f1ca56be \
             -require=go.bytebuilders.dev/audit@3ff33160c6f02f6151e59cdd44dd50a347c02ba0 \
+            -require=github.com/cert-manager/cert-manager@v1.13.3 \
             -require=github.com/elastic/go-elasticsearch/v7@v7.15.1 \
             -require=go.mongodb.org/mongo-driver@v1.10.2 \
             -replace=github.com/Masterminds/sprig/v3=github.com/gomodules/sprig/v3@v3.2.3-0.20220405051441-0a8a99bac1b8 \
