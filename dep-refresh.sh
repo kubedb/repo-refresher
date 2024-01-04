@@ -6,11 +6,11 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=k129-auto # -$(date +%s)
-COMMIT_MSG="Use k8s 1.29 client libs"
+COMMIT_MSG="Update deps"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-API_REF=${API_REF:-032b27211}
+API_REF=${API_REF:-a1d475ceb73e12977cce84eb7564393b9ae9b6e3}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -96,7 +96,6 @@ EOF
         fi
         git push -u origin HEAD -f
         hub pull-request \
-            --labels automerge \
             --message "$COMMIT_MSG" \
             --message "Signed-off-by: $(git config --get user.name) <$(git config --get user.email)>" || true
         # gh pr create \
