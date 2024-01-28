@@ -5,12 +5,12 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=k129-2 # -$(date +%s)
+PR_BRANCH=cve1 # -$(date +%s)
 COMMIT_MSG="Update deps"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-API_REF=${API_REF:-87c402a1a}
+API_REF=${API_REF:-v0.41.0-rc.0}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -54,7 +54,7 @@ module kubedb.dev/$name
 EOF
         go mod edit \
             -require=kubedb.dev/apimachinery@${API_REF} \
-            -require=kubedb.dev/db-client-go@v0.0.8 \
+            -require=kubedb.dev/db-client-go@v0.0.9 \
             -require=kubestash.dev/apimachinery@cc46ddfd674a760d87ec2fe4122f7816296654c8 \
             -require=gomodules.xyz/logs@v0.0.7 \
             -require=kmodules.xyz/client-go@92f92b4d698588a735ae5b1a82329cfa81a20fc9 \
@@ -72,7 +72,9 @@ EOF
             -replace=sigs.k8s.io/controller-runtime=github.com/kmodules/controller-runtime@ac-0.17.0 \
             -replace=github.com/imdario/mergo=github.com/imdario/mergo@v0.3.6 \
             -replace=k8s.io/apiserver=github.com/kmodules/apiserver@ac-1.29.0 \
-            -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@ac-1.29.0
+            -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@ac-1.29.0 \
+            -require=github.com/docker/docker@v24.0.7+incompatible \
+            -require=github.com/docker/cli@v24.0.7+incompatible
 
         # sed -i 's|NewLicenseEnforcer|MustLicenseEnforcer|g' `grep 'NewLicenseEnforcer' -rl *`
         go mod tidy
