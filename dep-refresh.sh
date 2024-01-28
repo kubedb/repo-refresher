@@ -5,12 +5,12 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=cve1 # -$(date +%s)
+PR_BRANCH=ctrl2 # -$(date +%s)
 COMMIT_MSG="Update deps"
 
 REPO_ROOT=/tmp/kubedb-repo-refresher
 
-API_REF=${API_REF:-v0.41.0-rc.0}
+API_REF=${API_REF:-c5efabadb}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -55,7 +55,7 @@ EOF
         go mod edit \
             -require=kubedb.dev/apimachinery@${API_REF} \
             -require=kubedb.dev/db-client-go@v0.0.9 \
-            -require=kubestash.dev/apimachinery@cc46ddfd674a760d87ec2fe4122f7816296654c8 \
+            -require=kubestash.dev/apimachinery@v0.4.0-rc.1 \
             -require=gomodules.xyz/logs@v0.0.7 \
             -require=kmodules.xyz/client-go@92f92b4d698588a735ae5b1a82329cfa81a20fc9 \
             -require=kmodules.xyz/resource-metadata@e92a8a48d4005ebf72dc386868c068131e00f8b5 \
