@@ -73,6 +73,7 @@ refresh() {
             -require=google.golang.org/protobuf@v1.33.0 \
             -require=github.com/docker/docker@v24.0.9+incompatible \
             -require=github.com/docker/cli@v24.0.9+incompatible \
+            -require=kubevault.dev/apimachinery@v0.18.2 \
             -replace=github.com/Masterminds/sprig/v3=github.com/gomodules/sprig/v3@v3.2.3-0.20220405051441-0a8a99bac1b8 \
             -replace=sigs.k8s.io/controller-runtime=github.com/kmodules/controller-runtime@ac-0.18.3 \
             -replace=github.com/imdario/mergo=github.com/imdario/mergo@v0.3.6 \
