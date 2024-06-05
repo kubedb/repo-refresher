@@ -62,11 +62,14 @@ refresh() {
     find . -type f -name "*.go" -exec sed -i 's|StatefulSet|PetSet|g' {} +
     find . -type f -name "*.go" -exec sed -i 's|Statefulset|Petset|g' {} +
     find . -type f -name "*.go" -exec sed -i 's|statefulset|petset|g' {} +
+    find . -type f -name "*.go" -exec sed -i 's|stsName|psName|g' {} +
     find . -type f -name "*.go" -exec sed -i 's| sts| ps|g' {} +
+    find . -type f -name "*.go" -exec sed -i 's|PetSetUpdateStrategy|StatefulSetUpdateStrategy|g' {} +
+    find . -type f -name "*.go" -exec sed -i 's|PetSetStrategyType|StatefulSetStrategyType|g' {} +
 
     if [ -f go.mod ]; then
         go mod edit \
-            -require=kubedb.dev/apimachinery@88a1d6804 \
+            -require=kubedb.dev/apimachinery@42d65d2c8 \
             -require=kmodules.xyz/client-go@v0.30.1 \
             -require=kmodules.xyz/resource-metadata@v0.18.6 \
             -require=gomodules.xyz/password-generator@v0.2.9 \
