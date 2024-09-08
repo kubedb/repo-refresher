@@ -1,0 +1,13 @@
+kubedb/dashboard-restic-plugin
+kubedb/elasticsearch-restic-plugin
+kubedb/mariadb-archiver
+kubedb/mariadb-restic-plugin
+kubedb/mongodb-restic-plugin
+kubedb/mssqlserver-archiver
+kubedb/mysql-archiver
+kubedb/mysql-restic-plugin
+kubedb/postgres-archiver
+kubedb/postgres-restic-plugin
+kubedb/redis-restic-plugin
+kubedb/singlestore-restic-plugin
+kubedb/zookeeper-restic-plugin
